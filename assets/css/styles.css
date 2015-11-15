@@ -172,6 +172,47 @@ form {
     margin-top: -16px;
     z-index: 11;
 }
+
+.content--error {
+    color: #196E76;
+}
+
+.content em {
+    font-style: normal;
+    background-color: yellow;
+}
+
+.content--error.pop {
+    -webkit-animation: pop .333s;
+    -moz-animation: pop .333s;
+    -o-animation: pop .333s;
+    animation: pop .333s;
+}
+
+@-webkit-keyframes pop {
+    0% {-webkit-transform: scale(1);}
+    50% {-webkit-transform: scale(1.075);}
+    100% {-webkit-transform: scale(1);}
+}
+
+@-moz-keyframes pop {
+    0% {-webkit-transform: scale(1);}
+    50% {-webkit-transform: scale(1.075);}
+    100% {-webkit-transform: scale(1);}
+}
+
+@-o-keyframes pop {
+    0% {-webkit-transform: scale(1);}
+    50% {-webkit-transform: scale(1.075);}
+    100% {-webkit-transform: scale(1);}
+
+@keyframes pop {
+    0% {-webkit-transform: scale(1);}
+    50% {-webkit-transform: scale(1.075);}
+    100% {-webkit-transform: scale(1);}
+
+}
+
 @media screen and (max-width: 600px) {
     header p {
         text-indent: 0;
