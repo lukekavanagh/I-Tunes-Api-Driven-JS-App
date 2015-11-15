@@ -74,18 +74,25 @@ $(document).ready(function(){
         Gimmie.toggleLoading(); 
         Gimme.userInput = $(this).find('input').val();
         Gimme.validate();
-    });
+
+
+        if ( Gimmie.userInputIsValid ) {
+            $.ajax({
+                url: "https://itunes.apple.com/lookup?id=" + Gimme.appId,
+                dataType: 'JSONP'
+            })
+            .done(function(response) {
+                var response = response.results[0];
+                console.log(response);
+            })
+            .fail(function (data){
+                Gimme.throwError(
+                    'iTunes API Error',
+                    'There was an error retrieving the info. Check the iTunes URL or try again later.'
+                    );
+            });
+          } else {
+            /* our other code here */
+          }  
+    })
 });
-
-
-//         if ( Gimmie.userInputIsValid ) {
-//         //make API request
-//         } else {
-//             Gimme.throwError(
-//                 'Invalid Link'
-//                 'You must submit a standard ITunes Store Link with an ID, i.e <br> <a href="https://itunes.apple.com/us/app/twitter/id333903271?mt=8">https://itunes.apple.com/us/app/twitter/<em>id333903271</em>?mt=8</a>'
-//                 );
-//         // throw an error
-//     	}
-//     });
-// });
