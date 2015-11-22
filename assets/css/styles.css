@@ -177,6 +177,12 @@ form {
     color: #196E76;
 }
 
+.content img[src*="icon-mask.png"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .content em {
     font-style: normal;
     background-color: yellow;

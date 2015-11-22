@@ -68,31 +68,48 @@ var Gimmie = {
     }
 };
 
+
 $(document).ready(function(){
+
     Gimmie.$form.on('submit', function(e){
         e.preventDefault();
-        Gimmie.toggleLoading(); 
-        Gimme.userInput = $(this).find('input').val();
-        Gimme.validate();
+        Gimmie.toggleLoading();
+        Gimmie.userInput = $(this).find('input').val();
+        Gimmie.validate();
 
-
-        if ( Gimmie.userInputIsValid ) {
+        if( Gimmie.userInputIsValid ) {
             $.ajax({
-                url: "https://itunes.apple.com/lookup?id=" + Gimme.appId,
+                url: "https://itunes.apple.com/lookup?id=" + Gimmie.appId,
                 dataType: 'JSONP'
             })
             .done(function(response) {
+
+                // Get the first response and log it
                 var response = response.results[0];
                 console.log(response);
+
+                // Check to see if request is valid & contains the info we want
+                // If it does, render it. Otherwise throw an error
+                if(response && response.artworkUrl512 != null){
+                    Gimmie.render(response);
+                } else {
+                    Gimmie.throwError(
+                        'Invalid Response',
+                        'The request you made appears to not have an associated icon. <br> Try a different URL.'
+                    );
+                }
             })
-            .fail(function (data){
-                Gimme.throwError(
+            .fail(function(data) {
+                Gimmie.throwError(
                     'iTunes API Error',
                     'There was an error retrieving the info. Check the iTunes URL or try again later.'
-                    );
+                );
             });
-          } else {
-            /* our other code here */
-          }  
-    })
+        } else {
+            Gimmie.throwError(
+                'Invalid Link',
+                'You must submit a standard iTunes store link with an ID, i.e. <br> <a href="https://itunes.apple.com/us/app/twitter/id333903271?mt=8">https://itunes.apple.com/us/app/twitter/<em>id333903271</em>?mt=8</a>'
+            );
+        }
+    });
 });
